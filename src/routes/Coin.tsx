@@ -1,3 +1,5 @@
+//Coin.tsx
+
 import { useEffect, useState } from 'react';
 import {
   Outlet,
@@ -234,7 +236,7 @@ function Coin() {
               <Link to={`/${coinId}/price`}>Price</Link>
             </Tab>
           </Tabs>
-          <Outlet />
+          <Outlet context={{ coinId }} />
         </>
       )}
     </Container>
