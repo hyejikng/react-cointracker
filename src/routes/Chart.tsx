@@ -46,10 +46,33 @@ function Chart() {
               toolbar: { show: false },
               background: 'transparent',
             },
-            stroke: { curve: 'smooth', width: 4 },
+            stroke: { curve: 'smooth', width: 5 },
             grid: { show: false },
-            xaxis: { labels: { show: false }, axisTicks: { show: false } },
+            xaxis: {
+              type: 'datetime',
+              labels: { show: false },
+              axisTicks: { show: false },
+              categories: data?.map(
+                (price) => new Date(+price.time_close * 1000).toUTCString() // 단항 연산자 +
+              ),
+            },
             yaxis: { labels: { show: false } },
+            fill: {
+              type: 'gradient',
+              gradient: {
+                shadeIntensity: 1,
+                opacityFrom: 1,
+                opacityTo: 0.8,
+                // stops: [20, 80, 90],
+                gradientToColors: ['#e81123'],
+              },
+            },
+            colors: ['#fff100'],
+            tooltip: {
+              y: {
+                formatter: (value) => `$${value.toFixed(2)}`, //소숫점 아래 세번째까지 보이게한다.
+              },
+            },
           }}
         />
       )}
