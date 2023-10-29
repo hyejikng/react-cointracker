@@ -5,6 +5,8 @@ import App from './App';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './theme';
 
+const queryClient = new QueryClient();
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );

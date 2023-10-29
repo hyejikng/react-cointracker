@@ -1,8 +1,6 @@
 import styled from 'styled-components';
-import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { fetchCoins } from '../api';
 
 // 전체 Container < Header < CoinsList < Coin
 
@@ -67,35 +65,30 @@ interface CoinObject {
 }
 
 function Coins() {
-  const { isLoading, data } = useQuery<CoinObject[]>({
-    queryKey: ['allCoins'],
-    queryFn: fetchCoins,
-  });
-  // console.log(isLoading, data);
-  // const [coins, setCoins] = useState<CoinObject[]>([]);
-  // const [loading, setLoading] = useState(true);
-  // const getCoins = async () => {
-  //   const json = await (
-  //     await fetch(`https://api.coinpaprika.com/v1/coins`)
-  //   ).json();
-  //   // console.log(json); 6만개이상
-  //   setCoins(json.slice(0, 100));
-  //   console.log(coins); //100개
-  //   setLoading(false);
-  // };
-  // useEffect(() => {
-  //   getCoins();
-  // }, []);
+  const [coins, setCoins] = useState<CoinObject[]>([]);
+  const [loading, setLoading] = useState(true);
+  const getCoins = async () => {
+    const json = await (
+      await fetch(`https://api.coinpaprika.com/v1/coins`)
+    ).json();
+    // console.log(json); 6만개이상
+    setCoins(json.slice(0, 100));
+    console.log(coins); //100개
+    setLoading(false);
+  };
+  useEffect(() => {
+    getCoins();
+  }, []);
   return (
     <Container>
       <Header>
         <Title>Coin</Title>
       </Header>
-      {isLoading ? (
+      {loading ? (
         <Loader>Loading...</Loader>
       ) : (
         <CoinsList>
-          {data?.slice(0, 50).map((item) => (
+          {coins.map((item) => (
             <Coin key={item.id}>
               <Link to={`/${item.id}`} state={item.name}>
                 <Img
