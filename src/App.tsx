@@ -1,6 +1,9 @@
 import { createGlobalStyle } from 'styled-components';
 import Router from './routes/Router';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { ThemeProvider } from 'styled-components';
+import { theme, DarkTheme, LightTheme } from './theme';
+import { useState } from 'react';
 
 const GlobalStyle = createGlobalStyle`
 html, body, div, span, applet, object, iframe,
@@ -61,11 +64,16 @@ a {
 `;
 
 function App() {
+  const [isDark, setIsDark] = useState(false);
+  const onClick = () => setIsDark((current) => !current);
   return (
     <>
-      <GlobalStyle />
-      <Router />
-      <ReactQueryDevtools initialIsOpen={true} />
+      <ThemeProvider theme={isDark ? DarkTheme : LightTheme}>
+        <button onClick={onClick}>Toggle Mode</button>
+        <GlobalStyle />
+        <Router />
+        <ReactQueryDevtools initialIsOpen={true} />
+      </ThemeProvider>
     </>
   );
 }

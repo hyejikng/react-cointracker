@@ -13,9 +13,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme}>
-        <App />
-      </ThemeProvider>
+      {/* <ThemeProvider theme={theme}> */}
+      <App />
+      {/* </ThemeProvider> */}
     </QueryClientProvider>
   </React.StrictMode>
 );

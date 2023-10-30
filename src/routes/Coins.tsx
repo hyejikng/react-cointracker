@@ -31,9 +31,9 @@ const Header = styled.header`
 const CoinsList = styled.ul``;
 
 const Coin = styled.li`
-  color: ${(props) => props.theme.bgColor};
+  color: ${(props) => props.theme.textColor};
   margin-bottom: 10px;
-  background-color: white;
+  background-color: ${(props) => props.theme.listColor};
   border-radius: 15px;
   &:hover {
     color: ${(props) => props.theme.accentColor};
