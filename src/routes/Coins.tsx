@@ -67,11 +67,9 @@ interface CoinObject {
   type: string;
 }
 
-interface ICoinsProps {
-  toggleClick: () => void;
-}
+interface ICoinsProps {}
 
-function Coins({ toggleClick }: ICoinsProps) {
+function Coins({}: ICoinsProps) {
   const { isLoading, data } = useQuery<CoinObject[]>({
     queryKey: ['allCoins'],
     queryFn: fetchCoins,
@@ -98,7 +96,6 @@ function Coins({ toggleClick }: ICoinsProps) {
       </Helmet>
       <Header>
         <Title>Coin</Title>
-        <button onClick={toggleClick}>Toggle Mode</button>
       </Header>
       {isLoading ? (
         <Loader>Loading...</Loader>

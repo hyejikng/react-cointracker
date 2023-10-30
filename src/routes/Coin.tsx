@@ -148,11 +148,9 @@ interface PriceData {
   };
 }
 
-interface ICoinProps {
-  isDark: boolean;
-}
+interface ICoinProps {}
 
-function Coin({ isDark }: ICoinProps) {
+function Coin({}: ICoinProps) {
   const { coinId } = useParams();
   const location = useLocation();
   // console.log(location); //current loaction object를 보여준다. 즉 우리에게는 비트코인의 정보 object
@@ -246,7 +244,7 @@ function Coin({ isDark }: ICoinProps) {
               <Link to={`/${coinId}/price`}>Price</Link>
             </Tab>
           </Tabs>
-          <Outlet context={{ coinId, isDark }} />
+          <Outlet context={{ coinId }} />
         </>
       )}
     </Container>
