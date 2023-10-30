@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { fetchCoins } from '../api';
+import { Helmet } from 'react-helmet';
 
 // 전체 Container < Header < CoinsList < Coin
 
@@ -88,6 +89,9 @@ function Coins() {
   // }, []);
   return (
     <Container>
+      <Helmet>
+        <title>Coins</title>
+      </Helmet>
       <Header>
         <Title>Coin</Title>
       </Header>

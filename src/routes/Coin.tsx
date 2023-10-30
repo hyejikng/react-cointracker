@@ -11,6 +11,7 @@ import {
 import styled from 'styled-components';
 import { useQuery } from '@tanstack/react-query';
 import { fetchCoinInfo, fetchCoinTickers } from '../api';
+import { Helmet } from 'react-helmet';
 
 const Loader = styled.span`
   font-size: 20px;
@@ -190,12 +191,16 @@ function Coin() {
   const { isLoading: tickersLoading, data: tickersData } = useQuery<PriceData>({
     queryKey: ['ticker', 'coinId'],
     queryFn: () => fetchCoinTickers(coinId!),
+    refetchInterval: 5000,
   });
 
   const loading = infoLoading || tickersLoading;
 
   return (
     <Container>
+      <Helmet>
+        <title>{name ? name : loading ? 'Loading...' : infoData?.name}</title>
+      </Helmet>
       <Header>
         <Title>{name}</Title>
       </Header>
@@ -213,8 +218,9 @@ function Coin() {
               <span>${infoData?.symbol}</span>
             </OverviewItem>
             <OverviewItem>
-              <span>Open Source:</span>
-              <span>{infoData?.open_source ? 'Yes' : 'No'}</span>
+              <span>Price:</span>
+              {/* <span>${tickersData?.quotes.USD.price.toFixed(3)}</span> */}
+              {/* usd의$ */}
             </OverviewItem>
           </Overview>
           <Description>{infoData?.description}</Description>
