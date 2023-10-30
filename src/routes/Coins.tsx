@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { fetchCoins } from '../api';
 import { Helmet } from 'react-helmet';
+import { useSetRecoilState } from 'recoil';
+import { isDarkAtom } from '../atoms';
 
 // 전체 Container < Header < CoinsList < Coin
 
@@ -67,28 +69,15 @@ interface CoinObject {
   type: string;
 }
 
-interface ICoinsProps {}
-
-function Coins({}: ICoinsProps) {
+function Coins() {
+  const setDarkAtom = useSetRecoilState(isDarkAtom);
+  const toggleDarkAtom = () => {
+    setDarkAtom((prev) => !prev);
+  };
   const { isLoading, data } = useQuery<CoinObject[]>({
     queryKey: ['allCoins'],
     queryFn: fetchCoins,
   });
-  // console.log(isLoading, data);
-  // const [coins, setCoins] = useState<CoinObject[]>([]);
-  // const [loading, setLoading] = useState(true);
-  // const getCoins = async () => {
-  //   const json = await (
-  //     await fetch(`https://api.coinpaprika.com/v1/coins`)
-  //   ).json();
-  //   // console.log(json); 6만개이상
-  //   setCoins(json.slice(0, 100));
-  //   console.log(coins); //100개
-  //   setLoading(false);
-  // };
-  // useEffect(() => {
-  //   getCoins();
-  // }, []);
   return (
     <Container>
       <Helmet>
@@ -96,6 +85,7 @@ function Coins({}: ICoinsProps) {
       </Helmet>
       <Header>
         <Title>Coin</Title>
+        <button onClick={toggleDarkAtom}>Toggle Mode</button>
       </Header>
       {isLoading ? (
         <Loader>Loading...</Loader>
