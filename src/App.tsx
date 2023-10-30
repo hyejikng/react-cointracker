@@ -65,13 +65,12 @@ a {
 
 function App() {
   const [isDark, setIsDark] = useState(false);
-  const onClick = () => setIsDark((current) => !current);
+  const toggleClick = () => setIsDark((current) => !current);
   return (
     <>
       <ThemeProvider theme={isDark ? DarkTheme : LightTheme}>
-        <button onClick={onClick}>Toggle Mode</button>
         <GlobalStyle />
-        <Router />
+        <Router toggleClick={toggleClick} />
         <ReactQueryDevtools initialIsOpen={true} />
       </ThemeProvider>
     </>
